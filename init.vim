@@ -80,6 +80,7 @@ nnoremap Y y$
 
 nnoremap <S-h> :MBEbp<CR>
 nnoremap <S-l> :MBEbn<CR>
+nnoremap <C-[> :GoInfo<CR>
 
 nnoremap <C-j> <C-W>j
 nnoremap <C-k> <C-W>k
@@ -152,6 +153,14 @@ let g:airline_right_sep=''
 let g:airline_right_alt_sep=''
 
 "neomake
+let g:neomake_message_sign={
+  \ 'text': 'M',
+  \ 'texthl': 'MessageMsg',
+  \ }
+let g:neomake_info_sign={
+  \ 'text': 'I',
+  \ 'texthl': 'InfoMsg',
+  \ }
 let g:neomake_warning_sign={
   \ 'text': 'W',
   \ 'texthl': 'WarningMsg',
