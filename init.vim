@@ -169,4 +169,6 @@ let g:neomake_error_sign={
   \ 'text': 'E',
   \ 'texthl': 'ErrorMsg',
   \ }
+let g:neomake_php_phpcs_args_standard='PSR2'
+let g:neomake_php_enabled_makers=['phpcs','php']
 autocmd! BufWritePost,BufEnter * Neomake
