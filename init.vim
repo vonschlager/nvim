@@ -139,7 +139,7 @@ let g:vdebug_options["ide_key"] = 'XDEBUG_VIM'
 "Ack
 let g:ackprg = 'ag --vimgrep'
 
-" minibufexpl
+"minibufexpl
 let g:miniBufExplVSplit=20
 let g:miniBufExplorerAutoStart=0
 
@@ -172,3 +172,6 @@ let g:neomake_error_sign={
 let g:neomake_php_phpcs_args_standard='PSR2'
 let g:neomake_php_enabled_makers=['phpcs','php']
 autocmd! BufWritePost,BufEnter * Neomake
+
+"rainbow
+let g:rainbow_active=1
