@@ -4,6 +4,7 @@ Plug 'airblade/vim-gitgutter'
 Plug 'altercation/vim-colors-solarized'
 Plug 'cespare/vim-toml'
 Plug 'ctrlpvim/ctrlp.vim'
+Plug 'elmcast/elm-vim'
 Plug 'fatih/vim-go'
 Plug 'fholgado/minibufexpl.vim'
 Plug 'godlygeek/tabular'
@@ -19,7 +20,6 @@ Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-repeat'
-Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-surround'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
@@ -101,6 +101,7 @@ if !exists('g:deoplete#sources#omni#input_patterns')
 endif
 let g:deoplete#sources#omni#input_patterns.php='[^. \t]->\h\w*\|\h\w*::'
 let g:deoplete#sources#omni#input_patterns.javascript='[^. *\t]\.\w*\|\h\w*::'
+let g:deoplete#sources#omni#input_patterns.elm='\.'
 
 let g:deoplete#sources#go#gocode_binary='/home/jacek/go/bin/gocode'
 let g:deoplete#sources#go#sort_class=['package', 'func', 'type', 'var', 'const']
@@ -125,7 +126,7 @@ vmap <silent> ;q :s?^\(\s*\)\(.*\)\s*$? \1 + '\2'?<CR>
 
 "CtrlP
 let g:ctrlp_custom_ignore = {
-\ 'dir': '\v[\/]\.(git|hg|svn)$|\v[\/]node_modules$|\v[\/](deps|priv|_build)$',
+\ 'dir': '\v[\/]\.(git|hg|svn)$|\v[\/]node_modules$|\v[\/](elm-stuff|deps|priv|_build)$',
 \ }
 
 "XDEBUG
@@ -176,3 +177,7 @@ autocmd! BufWritePost,BufEnter * Neomake
 
 "rainbow
 let g:rainbow_active=1
+
+"elm
+let g:elm_format_autosave=1
+let g:elm_setup_keybindings=0
