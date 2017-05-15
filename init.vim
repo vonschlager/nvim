@@ -5,7 +5,7 @@ Plug 'altercation/vim-colors-solarized'
 Plug 'cespare/vim-toml'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'elmcast/elm-vim'
-Plug 'fatih/vim-go'
+Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
 Plug 'fholgado/minibufexpl.vim'
 Plug 'godlygeek/tabular'
 Plug 'gregsexton/gitv'
@@ -52,7 +52,6 @@ set splitright
 set tabstop=4
 set foldmethod=indent
 set nofoldenable
-"set wildmode=list:longest
 
 colorscheme solarized
 
@@ -71,8 +70,6 @@ set guioptions-=L
 
 set guifont=Inconsolata\ Medium\ 12
 
-"set completeopt+=menu,preview
-"set completeopt+=noinsert
 set completeopt-=preview
 set completeopt+=noselect
 
@@ -81,7 +78,8 @@ nnoremap Y y$
 
 nnoremap <S-h> :MBEbp<CR>
 nnoremap <S-l> :MBEbn<CR>
-nnoremap <C-[> :GoInfo<CR>
+
+autocmd FileType go nmap <C-[> <Plug>(go-info)
 
 nnoremap <C-j> <C-W>j
 nnoremap <C-k> <C-W>k
@@ -147,7 +145,7 @@ let g:miniBufExplorerAutoStart=0
 
 "airline
 let g:airline_extensions = ['branch', 'tabline', 'neomake']
-let g:airline_section_z = '%3p%% %4l/%L %3c'
+let g:airline_section_z = '%p%% %c|%l/%L'
 let g:airline_symbols_ascii=1
 let g:airline_left_sep=''
 let g:airline_left_alt_sep=''
