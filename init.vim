@@ -4,7 +4,7 @@ Plug 'airblade/vim-gitgutter'
 Plug 'altercation/vim-colors-solarized'
 Plug 'cespare/vim-toml'
 Plug 'ctrlpvim/ctrlp.vim'
-Plug 'elmcast/elm-vim'
+Plug 'ElmCast/elm-vim'
 Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
 Plug 'fholgado/minibufexpl.vim'
 Plug 'godlygeek/tabular'
@@ -17,29 +17,27 @@ Plug 'neomake/neomake'
 Plug 'scrooloose/nerdcommenter'
 Plug 'scrooloose/nerdtree'
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'SirVer/ultisnips'
+Plug 't9md/vim-choosewin'
 Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
+Plug 'unblevable/quick-scope'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'zchee/deoplete-go', { 'do': 'make' }
 
 call plug#end()
 
-set t_cl=
-set t_Co=256
-
 filetype plugin indent on
 
-set ttyfast
 set lazyredraw
 
 set background=dark
 set cursorline
 set expandtab
 set fileencodings=utf8,iso-8859-2
-set mouse=a
 set noautochdir
 set nopaste
 set noshowmode
@@ -52,6 +50,10 @@ set splitright
 set tabstop=4
 set foldmethod=indent
 set nofoldenable
+set smartcase
+set nocursorcolumn
+set mouse=a
+set title
 
 colorscheme solarized
 
@@ -73,23 +75,14 @@ set guifont=Inconsolata\ Medium\ 12
 set completeopt-=preview
 set completeopt+=noselect
 
-nnoremap Q <nop>
-nnoremap Y y$
-
-nnoremap <S-h> :MBEbp<CR>
-nnoremap <S-l> :MBEbn<CR>
-
 autocmd FileType go nmap <C-[> <Plug>(go-info)
-
-nnoremap <C-j> <C-W>j
-nnoremap <C-k> <C-W>k
-nnoremap <C-h> <C-W>h
-nnoremap <C-l> <C-W>l
+autocmd BufNewFile,BufRead *.go setlocal noexpandtab tabstop=4 shiftwidth=4
 
 let NERDTreeMinimalUI=1
 
 let g:acp_enableAtStartup=0
 
+call deoplete#custom#set('ultisnips', 'matchers', ['matcher_fuzzy'])
 let g:deoplete#enable_at_startup=1
 let g:deoplete#enable_camel_case_completion=1
 let g:deoplete#enable_underbar_completion=1
@@ -105,14 +98,27 @@ let g:deoplete#sources#go#gocode_binary='/home/jacek/go/bin/gocode'
 let g:deoplete#sources#go#sort_class=['package', 'func', 'type', 'var', 'const']
 
 inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
+inoremap <expr><s-tab> pumvisible() ? "\<c-p>" : "\<tab>"
 autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
 
-let mapleader="\<Space>"
+let mapleader="\<space>"
+
+nnoremap Q <nop>
+nnoremap Y y$
+
+nnoremap <S-h> :MBEbp<CR>
+nnoremap <S-l> :MBEbn<CR>
+
+nnoremap <C-j> <C-W>j
+nnoremap <C-k> <C-W>k
+nnoremap <C-h> <C-W>h
+nnoremap <C-l> <C-W>l
 
 nmap <Leader>w :w<CR>
 nmap <Leader>q :qall<CR>
 nmap <Leader>b :MBEToggle<CR>
 nmap <Leader>t :NERDTreeToggle<CR>
+nmap - <Plug>(choosewin)
 
 nmap <Leader>p "+p
 nmap <Leader>P "+P
@@ -124,7 +130,7 @@ vmap <silent> ;q :s?^\(\s*\)\(.*\)\s*$? \1 + '\2'?<CR>
 
 "CtrlP
 let g:ctrlp_custom_ignore = {
-\ 'dir': '\v[\/]\.(git|hg|svn)$|\v[\/]node_modules$|\v[\/](elm-stuff|deps|priv|_build)$',
+\ 'dir': '\v[\/]\.(git|hg|svn)$|\v[\/]node_modules$|\v[\/](elm-stuff|deps|priv|_build|vendor)$',
 \ }
 
 "XDEBUG
@@ -171,7 +177,7 @@ let g:neomake_error_sign={
   \ }
 let g:neomake_php_phpcs_args_standard='PSR2'
 let g:neomake_php_enabled_makers=['phpcs','php']
-autocmd! BufWritePost,BufEnter * Neomake
+autocmd! BufWritePost,BufEnter * Neomake!
 
 "rainbow
 let g:rainbow_active=1
@@ -179,3 +185,14 @@ let g:rainbow_active=1
 "elm
 let g:elm_format_autosave=1
 let g:elm_setup_keybindings=0
+
+"ultinips
+let g:UltiSnipsExpandTrigger="<a-j>"
+let g:UltiSnipsJumpForwardTrigger="<a-h>"
+let g:UltiSnipsJumpBackwardTrigger="<a-l>"
+
+"vim-go
+let g:go_fmt_command="goimports"
+
+let g:choosewin_overlay_enable=1
+let g:choosewin_blink_on_land=0
