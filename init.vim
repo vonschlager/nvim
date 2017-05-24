@@ -177,7 +177,7 @@ let g:neomake_error_sign={
   \ }
 let g:neomake_php_phpcs_args_standard='PSR2'
 let g:neomake_php_enabled_makers=['phpcs','php']
-autocmd! BufWritePost,BufEnter * Neomake!
+autocmd! BufWritePost,BufEnter * Neomake
 
 "rainbow
 let g:rainbow_active=1
