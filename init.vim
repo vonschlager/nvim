@@ -1,7 +1,6 @@
 call plug#begin(expand('~/.config/nvim/plugged'))
 
 Plug 'airblade/vim-gitgutter'
-Plug 'altercation/vim-colors-solarized'
 Plug 'cespare/vim-toml'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'ElmCast/elm-vim'
@@ -11,15 +10,16 @@ Plug 'godlygeek/tabular'
 Plug 'gregsexton/gitv'
 Plug 'jiangmiao/auto-pairs'
 Plug 'jodosha/vim-godebug'
+Plug 'lifepillar/vim-solarized8'
 Plug 'luochen1990/rainbow'
 Plug 'majutsushi/tagbar'
 Plug 'mileszs/ack.vim'
 Plug 'neomake/neomake'
 Plug 'scrooloose/nerdcommenter'
 Plug 'scrooloose/nerdtree'
+Plug 'sebdah/vim-delve'
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'SirVer/ultisnips'
-Plug 't9md/vim-choosewin'
 Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-repeat'
@@ -55,8 +55,9 @@ set smartcase
 set nocursorcolumn
 set mouse=a
 set title
+set termguicolors
 
-colorscheme solarized
+colorscheme solarized8_dark
 
 set nobackup
 set nowritebackup
@@ -71,13 +72,8 @@ set guioptions-=t  "remove toolbar
 set guioptions-=r  "remove right-hand scroll bar
 set guioptions-=L
 
-set guifont=Inconsolata\ Medium\ 12
-
 set completeopt-=preview
 set completeopt+=noselect
-
-autocmd FileType go nmap <C-[> <Plug>(go-info)
-autocmd BufNewFile,BufRead *.go setlocal noexpandtab tabstop=4 shiftwidth=4
 
 let NERDTreeMinimalUI=1
 
@@ -193,7 +189,20 @@ let g:UltiSnipsJumpForwardTrigger="<a-h>"
 let g:UltiSnipsJumpBackwardTrigger="<a-l>"
 
 "vim-go
+let g:go_auto_type_info=1
 let g:go_fmt_command="goimports"
+let g:go_highlight_build_constraints=1
+let g:go_highlight_extra_types=1
+let g:go_highlight_fields=1
+let g:go_highlight_functions=1
+let g:go_highlight_methods=1
+let g:go_highlight_operators=1
+let g:go_highlight_structs=1
+let g:go_highlight_types=1
+let g:go_addtags_transform="snakecase"
+let g:go_snippet_engine="ultisnips"
 
-let g:choosewin_overlay_enable=1
-let g:choosewin_blink_on_land=0
+"go
+au FileType go nmap <leader>gt :GoDeclsDir<cr>
+autocmd FileType go nmap <C-[> <Plug>(go-info)
+autocmd BufNewFile,BufRead *.go setlocal noexpandtab tabstop=4 shiftwidth=4 softtabstop=4
