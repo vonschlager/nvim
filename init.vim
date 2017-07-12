@@ -151,7 +151,7 @@ let g:miniBufExplorerAutoStart=0
 
 "airline
 let g:airline_extensions = ['branch', 'tabline', 'neomake']
-let g:airline_section_z = '%p%% %c|%l|%L'
+let g:airline_section_z = '%p%% %c|%l/%L'
 let g:airline_symbols_ascii=1
 let g:airline_left_sep=''
 let g:airline_left_alt_sep=''
