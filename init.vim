@@ -2,7 +2,8 @@ call plug#begin(expand('~/.config/nvim/plugged'))
 
 Plug 'airblade/vim-gitgutter'
 Plug 'cespare/vim-toml'
-Plug 'ctrlpvim/ctrlp.vim'
+Plug 'junegunn/fzf', { 'do': './install --no-key-bindings --no-completion --no-update-rc' } " only install fzf for vim
+Plug 'junegunn/fzf.vim'
 Plug 'ElmCast/elm-vim'
 Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
 Plug 'fholgado/minibufexpl.vim'
@@ -18,7 +19,7 @@ Plug 'neomake/neomake'
 Plug 'scrooloose/nerdcommenter'
 Plug 'scrooloose/nerdtree'
 Plug 'sebdah/vim-delve'
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+"Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'SirVer/ultisnips'
 Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-fugitive'
@@ -27,7 +28,12 @@ Plug 'tpope/vim-surround'
 Plug 'unblevable/quick-scope'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-Plug 'zchee/deoplete-go', { 'do': 'make' }
+"Plug 'zchee/deoplete-go', { 'do': 'make' }
+
+Plug 'autozimu/LanguageClient-neovim', { 'do': ':UpdateRemotePlugins' }
+Plug 'roxma/LanguageServer-php-neovim',  {'do': 'composer install && composer run-script parse-stubs'}
+Plug 'roxma/nvim-completion-manager'
+Plug 'junegunn/gv.vim'
 
 call plug#end()
 
@@ -59,6 +65,7 @@ set termguicolors
 set guicursor=n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50
             \,a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor
             \,sm:block-blinkwait175-blinkoff150-blinkon175
+set hidden "for language server
 
 colorscheme solarized8_dark
 
@@ -82,20 +89,20 @@ let NERDTreeMinimalUI=1
 
 let g:acp_enableAtStartup=0
 
-call deoplete#custom#set('ultisnips', 'matchers', ['matcher_fuzzy'])
-let g:deoplete#enable_at_startup=1
-let g:deoplete#enable_camel_case_completion=1
-let g:deoplete#enable_underbar_completion=1
-let g:deoplete#enable_smart_case=1
-if !exists('g:deoplete#sources#omni#input_patterns')
-  let g:deoplete#sources#omni#input_patterns = {}
-endif
-let g:deoplete#sources#omni#input_patterns.php='[^. \t]->\h\w*\|\h\w*::'
-let g:deoplete#sources#omni#input_patterns.javascript='[^. *\t]\.\w*\|\h\w*::'
-let g:deoplete#sources#omni#input_patterns.elm='\.'
-
-let g:deoplete#sources#go#gocode_binary='/home/jacek/go/bin/gocode'
-let g:deoplete#sources#go#sort_class=['package', 'func', 'type', 'var', 'const']
+"call deoplete#custom#set('ultisnips', 'matchers', ['matcher_fuzzy'])
+"let g:deoplete#enable_at_startup=1
+"let g:deoplete#enable_camel_case_completion=1
+"let g:deoplete#enable_underbar_completion=1
+"let g:deoplete#enable_smart_case=1
+"if !exists('g:deoplete#sources#omni#input_patterns')
+"  let g:deoplete#sources#omni#input_patterns = {}
+"endif
+"let g:deoplete#sources#omni#input_patterns.php='[^. \t]->\h\w*\|\h\w*::'
+"let g:deoplete#sources#omni#input_patterns.javascript='[^. *\t]\.\w*\|\h\w*::'
+"let g:deoplete#sources#omni#input_patterns.elm='\.'
+"
+"let g:deoplete#sources#go#gocode_binary='/home/jacek/go/bin/gocode'
+"let g:deoplete#sources#go#sort_class=['package', 'func', 'type', 'var', 'const']
 
 inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
 inoremap <expr><s-tab> pumvisible() ? "\<c-p>" : "\<tab>"
@@ -108,6 +115,8 @@ nnoremap Y y$
 
 nnoremap <S-h> :MBEbp<CR>
 nnoremap <S-l> :MBEbn<CR>
+
+nnoremap <C-p> :FZF<CR>
 
 nnoremap <C-j> <C-W>j
 nnoremap <C-k> <C-W>k
@@ -209,3 +218,6 @@ let g:go_snippet_engine="ultisnips"
 au FileType go nmap <leader>gt :GoDeclsDir<cr>
 autocmd FileType go nmap <C-[> <Plug>(go-info)
 autocmd BufNewFile,BufRead *.go setlocal noexpandtab tabstop=4 shiftwidth=4 softtabstop=4
+
+"php
+autocmd FileType php LanguageClientStart
